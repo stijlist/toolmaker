@@ -8,16 +8,6 @@
 
 import UIKit
 
-protocol Growable {
-    func grow(scale: Double) -> ()
-}
-
-protocol Shrinkable {
-    
-}
-
 protocol AttributeEditable {
     var attributes : Dictionary<String, AnyObject> { get }
-    
-    
 }
