@@ -7,11 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0129E6195F793600F7A31D /* UIDirectManipulationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0129E5195F793600F7A31D /* UIDirectManipulationExtension.swift */; };
+		4C0129E8195FCF0700F7A31D /* DirectManipulationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0129E7195FCF0700F7A31D /* DirectManipulationProtocols.swift */; };
 		4C6AFAEC1959EE2A00DC933D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AFAEB1959EE2A00DC933D /* AppDelegate.swift */; };
 		4C6AFAEE1959EE2A00DC933D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AFAED1959EE2A00DC933D /* ViewController.swift */; };
 		4C6AFAF11959EE2A00DC933D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C6AFAEF1959EE2A00DC933D /* Main.storyboard */; };
 		4C6AFAF31959EE2A00DC933D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6AFAF21959EE2A00DC933D /* Images.xcassets */; };
 		4C6AFAFF1959EE2A00DC933D /* ToolMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AFAFE1959EE2A00DC933D /* ToolMakerTests.swift */; };
+		4C6AFB091959EE5200DC933D /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AFB081959EE5200DC933D /* SourceViewController.swift */; };
+		4C6AFB18195A2B2300DC933D /* ToolMakerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6AFB17195A2B2300DC933D /* ToolMakerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C6AFB1E195A2B2300DC933D /* ToolMakerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */; };
+		4C6AFB25195A2B2400DC933D /* ToolMakerKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AFB24195A2B2400DC933D /* ToolMakerKitTests.swift */; };
+		4C6AFB28195A2B2400DC933D /* ToolMakerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */; };
+		4C6AFB29195A2B2400DC933D /* ToolMakerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4C6AFB3A195A2B9600DC933D /* EditorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AFB39195A2B9600DC933D /* EditorPaletteView.swift */; };
+		4CD4FCAF195C9958006E6A67 /* DynamicViewInstatiator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,9 +32,74 @@
 			remoteGlobalIDString = 4C6AFAE51959EE2A00DC933D;
 			remoteInfo = ToolMaker;
 		};
+		4C6AFB1F195A2B2300DC933D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C6AFADE1959EE2A00DC933D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6AFB12195A2B2300DC933D;
+			remoteInfo = ToolMakerKit;
+		};
+		4C6AFB26195A2B2400DC933D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C6AFADE1959EE2A00DC933D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6AFB12195A2B2300DC933D;
+			remoteInfo = ToolMakerKit;
+		};
+		4C6AFB2A195A2B2400DC933D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C6AFADE1959EE2A00DC933D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6AFB12195A2B2300DC933D;
+			remoteInfo = ToolMakerKit;
+		};
+		4C6AFB33195A2B2400DC933D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C6AFADE1959EE2A00DC933D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6AFB12195A2B2300DC933D;
+			remoteInfo = ToolMakerKit;
+		};
+		4C6AFB35195A2B2400DC933D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C6AFADE1959EE2A00DC933D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6AFB12195A2B2300DC933D;
+			remoteInfo = ToolMakerKit;
+		};
+		4C6AFB37195A2B6400DC933D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C6AFADE1959EE2A00DC933D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6AFB12195A2B2300DC933D;
+			remoteInfo = ToolMakerKit;
+		};
+		4CD4FCB0195CA656006E6A67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C6AFADE1959EE2A00DC933D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6AFB12195A2B2300DC933D;
+			remoteInfo = ToolMakerKit;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4C6AFB2F195A2B2400DC933D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4C6AFB29195A2B2400DC933D /* ToolMakerKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4C0129E5195F793600F7A31D /* UIDirectManipulationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDirectManipulationExtension.swift; sourceTree = "<group>"; };
+		4C0129E7195FCF0700F7A31D /* DirectManipulationProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectManipulationProtocols.swift; sourceTree = "<group>"; };
 		4C6AFAE61959EE2A00DC933D /* ToolMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6AFAEA1959EE2A00DC933D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C6AFAEB1959EE2A00DC933D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +109,17 @@
 		4C6AFAF81959EE2A00DC933D /* ToolMakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolMakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6AFAFD1959EE2A00DC933D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C6AFAFE1959EE2A00DC933D /* ToolMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMakerTests.swift; sourceTree = "<group>"; };
+		4C6AFB081959EE5200DC933D /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
+		4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ToolMakerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C6AFB16195A2B2300DC933D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C6AFB17195A2B2300DC933D /* ToolMakerKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolMakerKit.h; sourceTree = "<group>"; };
+		4C6AFB1D195A2B2300DC933D /* ToolMakerKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolMakerKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C6AFB23195A2B2400DC933D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C6AFB24195A2B2400DC933D /* ToolMakerKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMakerKitTests.swift; sourceTree = "<group>"; };
+		4C6AFB39195A2B9600DC933D /* EditorPaletteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPaletteView.swift; sourceTree = "<group>"; };
+		4CD4FCAC195C9958006E6A67 /* ToolMaker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToolMaker-Bridging-Header.h"; sourceTree = "<group>"; };
+		4CD4FCAD195C9958006E6A67 /* DynamicViewInstatiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicViewInstatiator.h; sourceTree = "<group>"; };
+		4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicViewInstatiator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6AFB28195A2B2400DC933D /* ToolMakerKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +135,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C6AFB0F195A2B2300DC933D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C6AFB1A195A2B2300DC933D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6AFB1E195A2B2300DC933D /* ToolMakerKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +161,8 @@
 			children = (
 				4C6AFAE81959EE2A00DC933D /* ToolMaker */,
 				4C6AFAFB1959EE2A00DC933D /* ToolMakerTests */,
+				4C6AFB14195A2B2300DC933D /* ToolMakerKit */,
+				4C6AFB21195A2B2300DC933D /* ToolMakerKitTests */,
 				4C6AFAE71959EE2A00DC933D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +172,8 @@
 			children = (
 				4C6AFAE61959EE2A00DC933D /* ToolMaker.app */,
 				4C6AFAF81959EE2A00DC933D /* ToolMakerTests.xctest */,
+				4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */,
+				4C6AFB1D195A2B2300DC933D /* ToolMakerKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,11 +181,18 @@
 		4C6AFAE81959EE2A00DC933D /* ToolMaker */ = {
 			isa = PBXGroup;
 			children = (
+				4C6AFB39195A2B9600DC933D /* EditorPaletteView.swift */,
 				4C6AFAEB1959EE2A00DC933D /* AppDelegate.swift */,
 				4C6AFAED1959EE2A00DC933D /* ViewController.swift */,
+				4C0129E7195FCF0700F7A31D /* DirectManipulationProtocols.swift */,
+				4C0129E5195F793600F7A31D /* UIDirectManipulationExtension.swift */,
+				4CD4FCAD195C9958006E6A67 /* DynamicViewInstatiator.h */,
+				4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */,
+				4C6AFB081959EE5200DC933D /* SourceViewController.swift */,
 				4C6AFAEF1959EE2A00DC933D /* Main.storyboard */,
 				4C6AFAF21959EE2A00DC933D /* Images.xcassets */,
 				4C6AFAE91959EE2A00DC933D /* Supporting Files */,
+				4CD4FCAC195C9958006E6A67 /* ToolMaker-Bridging-Header.h */,
 			);
 			path = ToolMaker;
 			sourceTree = "<group>";
@@ -109,7 +222,52 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		4C6AFB14195A2B2300DC933D /* ToolMakerKit */ = {
+			isa = PBXGroup;
+			children = (
+				4C6AFB17195A2B2300DC933D /* ToolMakerKit.h */,
+				4C6AFB15195A2B2300DC933D /* Supporting Files */,
+			);
+			path = ToolMakerKit;
+			sourceTree = "<group>";
+		};
+		4C6AFB15195A2B2300DC933D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C6AFB16195A2B2300DC933D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C6AFB21195A2B2300DC933D /* ToolMakerKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C6AFB24195A2B2400DC933D /* ToolMakerKitTests.swift */,
+				4C6AFB22195A2B2400DC933D /* Supporting Files */,
+			);
+			path = ToolMakerKitTests;
+			sourceTree = "<group>";
+		};
+		4C6AFB22195A2B2400DC933D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C6AFB23195A2B2400DC933D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4C6AFB10195A2B2300DC933D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6AFB18195A2B2300DC933D /* ToolMakerKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		4C6AFAE51959EE2A00DC933D /* ToolMaker */ = {
@@ -119,10 +277,13 @@
 				4C6AFAE21959EE2A00DC933D /* Sources */,
 				4C6AFAE31959EE2A00DC933D /* Frameworks */,
 				4C6AFAE41959EE2A00DC933D /* Resources */,
+				4C6AFB2F195A2B2400DC933D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4C6AFB27195A2B2400DC933D /* PBXTargetDependency */,
+				4C6AFB2B195A2B2400DC933D /* PBXTargetDependency */,
 			);
 			name = ToolMaker;
 			productName = ToolMaker;
@@ -147,6 +308,46 @@
 			productReference = 4C6AFAF81959EE2A00DC933D /* ToolMakerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		4C6AFB12195A2B2300DC933D /* ToolMakerKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C6AFB2C195A2B2400DC933D /* Build configuration list for PBXNativeTarget "ToolMakerKit" */;
+			buildPhases = (
+				4C6AFB0E195A2B2300DC933D /* Sources */,
+				4C6AFB0F195A2B2300DC933D /* Frameworks */,
+				4C6AFB10195A2B2300DC933D /* Headers */,
+				4C6AFB11195A2B2300DC933D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ToolMakerKit;
+			productName = ToolMakerKit;
+			productReference = 4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4C6AFB1C195A2B2300DC933D /* ToolMakerKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C6AFB30195A2B2400DC933D /* Build configuration list for PBXNativeTarget "ToolMakerKitTests" */;
+			buildPhases = (
+				4C6AFB19195A2B2300DC933D /* Sources */,
+				4C6AFB1A195A2B2300DC933D /* Frameworks */,
+				4C6AFB1B195A2B2300DC933D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C6AFB20195A2B2300DC933D /* PBXTargetDependency */,
+				4C6AFB34195A2B2400DC933D /* PBXTargetDependency */,
+				4C6AFB36195A2B2400DC933D /* PBXTargetDependency */,
+				4C6AFB38195A2B6400DC933D /* PBXTargetDependency */,
+				4CD4FCB1195CA656006E6A67 /* PBXTargetDependency */,
+			);
+			name = ToolMakerKitTests;
+			productName = ToolMakerKitTests;
+			productReference = 4C6AFB1D195A2B2300DC933D /* ToolMakerKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -158,10 +359,19 @@
 				TargetAttributes = {
 					4C6AFAE51959EE2A00DC933D = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = ZMWR25PB84;
 					};
 					4C6AFAF71959EE2A00DC933D = {
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = 4C6AFAE51959EE2A00DC933D;
+					};
+					4C6AFB12195A2B2300DC933D = {
+						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = ZMWR25PB84;
+					};
+					4C6AFB1C195A2B2300DC933D = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 4C6AFB12195A2B2300DC933D;
 					};
 				};
 			};
@@ -180,6 +390,8 @@
 			targets = (
 				4C6AFAE51959EE2A00DC933D /* ToolMaker */,
 				4C6AFAF71959EE2A00DC933D /* ToolMakerTests */,
+				4C6AFB12195A2B2300DC933D /* ToolMakerKit */,
+				4C6AFB1C195A2B2300DC933D /* ToolMakerKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,6 +413,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C6AFB11195A2B2300DC933D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C6AFB1B195A2B2300DC933D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -209,7 +435,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C6AFAEE1959EE2A00DC933D /* ViewController.swift in Sources */,
+				4CD4FCAF195C9958006E6A67 /* DynamicViewInstatiator.m in Sources */,
+				4C0129E8195FCF0700F7A31D /* DirectManipulationProtocols.swift in Sources */,
+				4C0129E6195F793600F7A31D /* UIDirectManipulationExtension.swift in Sources */,
 				4C6AFAEC1959EE2A00DC933D /* AppDelegate.swift in Sources */,
+				4C6AFB091959EE5200DC933D /* SourceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +451,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C6AFB0E195A2B2300DC933D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6AFB3A195A2B9600DC933D /* EditorPaletteView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C6AFB19195A2B2300DC933D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6AFB25195A2B2400DC933D /* ToolMakerKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -228,6 +474,41 @@
 			isa = PBXTargetDependency;
 			target = 4C6AFAE51959EE2A00DC933D /* ToolMaker */;
 			targetProxy = 4C6AFAF91959EE2A00DC933D /* PBXContainerItemProxy */;
+		};
+		4C6AFB20195A2B2300DC933D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C6AFB12195A2B2300DC933D /* ToolMakerKit */;
+			targetProxy = 4C6AFB1F195A2B2300DC933D /* PBXContainerItemProxy */;
+		};
+		4C6AFB27195A2B2400DC933D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C6AFB12195A2B2300DC933D /* ToolMakerKit */;
+			targetProxy = 4C6AFB26195A2B2400DC933D /* PBXContainerItemProxy */;
+		};
+		4C6AFB2B195A2B2400DC933D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C6AFB12195A2B2300DC933D /* ToolMakerKit */;
+			targetProxy = 4C6AFB2A195A2B2400DC933D /* PBXContainerItemProxy */;
+		};
+		4C6AFB34195A2B2400DC933D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C6AFB12195A2B2300DC933D /* ToolMakerKit */;
+			targetProxy = 4C6AFB33195A2B2400DC933D /* PBXContainerItemProxy */;
+		};
+		4C6AFB36195A2B2400DC933D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C6AFB12195A2B2300DC933D /* ToolMakerKit */;
+			targetProxy = 4C6AFB35195A2B2400DC933D /* PBXContainerItemProxy */;
+		};
+		4C6AFB38195A2B6400DC933D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C6AFB12195A2B2300DC933D /* ToolMakerKit */;
+			targetProxy = 4C6AFB37195A2B6400DC933D /* PBXContainerItemProxy */;
+		};
+		4CD4FCB1195CA656006E6A67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C6AFB12195A2B2300DC933D /* ToolMakerKit */;
+			targetProxy = 4CD4FCB0195CA656006E6A67 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -327,9 +608,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ToolMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ToolMaker/ToolMaker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -338,9 +625,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ToolMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ToolMaker/ToolMaker-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -380,6 +672,89 @@
 			};
 			name = Release;
 		};
+		4C6AFB2D195A2B2400DC933D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ToolMakerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4C6AFB2E195A2B2400DC933D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ToolMakerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4C6AFB31195A2B2400DC933D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ToolMakerKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4C6AFB32195A2B2400DC933D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ToolMakerKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -399,6 +774,7 @@
 				4C6AFB041959EE2A00DC933D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C6AFB051959EE2A00DC933D /* Build configuration list for PBXNativeTarget "ToolMakerTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +783,25 @@
 				4C6AFB071959EE2A00DC933D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C6AFB2C195A2B2400DC933D /* Build configuration list for PBXNativeTarget "ToolMakerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C6AFB2D195A2B2400DC933D /* Debug */,
+				4C6AFB2E195A2B2400DC933D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C6AFB30195A2B2400DC933D /* Build configuration list for PBXNativeTarget "ToolMakerKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C6AFB31195A2B2400DC933D /* Debug */,
+				4C6AFB32195A2B2400DC933D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
