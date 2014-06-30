@@ -11,10 +11,10 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet var editorPaletteTableView: UITableView
-    let editableAttributes = ["attr1": "hello?", "attr2":"world."]
-    let attributeOrder = ["attr1", "attr2"]
-    let attributeItems = ["UIView", "UILabel"]
-    var GRDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
+    
+    let attributeNames = ["UIView", "UILabel"]
+    var GestureRecognizerDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,50 +26,55 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PaletteItem") as UITableViewCell
-        let label = UILabel(frame: cell.bounds)
-        label.text = editableAttributes[attributeOrder[indexPath.row]]
-        cell.addSubview(label)
-        let gr = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
-        
-        cell.userInteractionEnabled = true
-        cell.addGestureRecognizer(gr)
-        
-        cell.tag = indexPath.row
-        return cell
+        let paletteItem = tableView.dequeueReusableCellWithIdentifier("PaletteItem") as UITableViewCell
+        // configure label
+        let label = UILabel(frame: paletteItem.bounds)
+        label.text = attributeNames[indexPath.row]
+        paletteItem.addSubview(label)
+        // configure gesture recognizer
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFromEditorPalette:"))
+        paletteItem.addGestureRecognizer(gestureRecognizer)
+        // add tag so we can reference the indexPath from inside any gestureRecognizer callbacks
+        paletteItem.tag = indexPath.row
+        return paletteItem
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return attributeOrder.count
+        return attributeNames.count
     }
 
-    func handlePan(sender: UIPanGestureRecognizer) {
+    func handlePanFromEditorPalette(sender: UIPanGestureRecognizer) {
 
         let startingCell = sender.view as UITableViewCell
         let locationOnScreen = sender.locationInView(self.view)
-        let viewType = attributeItems[startingCell.tag]
-        sender.cancelsTouchesInView = true
+        // look up view type based on cell's index (read from the cell's tag)
+        let viewType = attributeNames[startingCell.tag]
         
         switch(sender.state) {
         case .Began:
-            let instantiatedView : UIView! = DynamicViewInstantiator.instantiateViewFromClass(NSClassFromString(viewType)) as UIView
-            instantiatedView.backgroundColor = UIColor.blackColor()
-            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0) // hack
-            self.view.addSubview(instantiatedView)
-            GRDictionary.updateValue(instantiatedView, forKey: sender)
+            instantiateViewAtPoint(viewType, locationOnScreen: locationOnScreen, gestureRecognizer: sender)
         case .Changed:
-            let instantiatedView = GRDictionary[sender]!
-            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0) // hack
+            let instantiatedView = GestureRecognizerDictionary[sender]!
+            instantiatedView.center = CGPointMake(locationOnScreen.x, locationOnScreen.y)
         case _:
             let locationInTableView = sender.locationInView(editorPaletteTableView)
             if CGRectContainsPoint(sender.view.frame, locationInTableView) {
                 // if the user returns the instantiatedView to the cell from which it came
-                GRDictionary[sender]!.removeFromSuperview()
+                GestureRecognizerDictionary[sender]!.removeFromSuperview()
             } else {
-                GRDictionary[sender]!.activate()
+                GestureRecognizerDictionary[sender]!.activate()
             }
-            GRDictionary.removeValueForKey(sender)
+            GestureRecognizerDictionary.removeValueForKey(sender)
         }
     }
+    
+    func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint, gestureRecognizer: UIGestureRecognizer) {
+        let instantiatedView = DynamicViewInstantiator.instantiateViewFromClass(NSClassFromString(viewType)) as UIView
+        instantiatedView.backgroundColor = UIColor.blackColor()
+        instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
+        self.view.addSubview(instantiatedView)
+        GestureRecognizerDictionary.updateValue(instantiatedView, forKey: gestureRecognizer)
+    }
+    
 }
 

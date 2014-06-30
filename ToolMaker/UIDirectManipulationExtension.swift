@@ -16,38 +16,48 @@ extension UIView {
     // - set action of all gesture recognizers to the same (e.g. "manipulate")
     // - switch/case in the manipulate function based respondsToSelector, e.g:
     //     case sender.respondsToSelector(Selector("rotation")) => apply rotation transform
-    // 
+    // OR:
+    // - implement UIGestureRecognizerDelegate shouldRecognizeSimultaneouslyWithGestureRecognizer in this extension
     // - IDEA: enable users to activate different degrees of freedom in editor palette
     func activate() {
         // add gesture recognizers, set user interaction enabled
         // pan gestures
-        let lpgr = UILongPressGestureRecognizer(target: self, action: Selector("pan:"))
-        lpgr.minimumPressDuration = 0.1
-        self.addGestureRecognizer(lpgr)
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("pan:"))
+//        longPressGestureRecognizer.minimumPressDuration = 0.1
+        self.addGestureRecognizer(panGestureRecognizer)
         
         // pinch gestures
-        let pgr = UIPinchGestureRecognizer(target: self, action: Selector("pinch:"))
-        self.addGestureRecognizer(pgr)
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("pinch:"))
+        self.addGestureRecognizer(pinchGestureRecognizer)
 
         // rotation gestures
-        let rgr = UIRotationGestureRecognizer(target: self, action: Selector("rotate:"))
-        self.addGestureRecognizer(rgr)
+        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: Selector("rotate:"))
+        self.addGestureRecognizer(rotationGestureRecognizer)
         
+        // defensive; in case the UIView's parent has set userInteractionEnabled to false
         self.userInteractionEnabled = true
     }
     
-    func pan(sender: UIPanGestureRecognizer){
-        switch(sender.state) {
+    func pan(gestureRecognizer: UIPanGestureRecognizer) {
+        switch(gestureRecognizer.state) {
         case .Began:
             UIView.animateWithDuration(0.3) {
                 self.alpha = 0.8
-                let locationOnScreen = sender.locationInView(self.superview)
-                self.center = CGPointMake(locationOnScreen.x, locationOnScreen.y)
             }
         case .Changed:
-            let locationOnScreen = sender.locationInView(self.superview)
-            self.center = CGPointMake(locationOnScreen.x, locationOnScreen.y)
+            let delta = gestureRecognizer.translationInView(self.superview)
+            // if we redraw on every gestureRecognizer callback, then the object flickers because it's 
+            // redrawing too often, so only change the view's center (triggering a redraw) if the deltas
+            // are above some magic number
+            // TODO: figure out if this is the best way to avoid flickering
+            if abs(delta.x) + abs(delta.y) > 4.0 {
+                self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)
+                // reset the translation to zero so we only get the delta since the last callback
+                gestureRecognizer.setTranslation(CGPointZero, inView: self.superview)
+            }
         case _:
+            let delta = gestureRecognizer.translationInView(self.superview)
+            self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)
             UIView.animateWithDuration(0.3) {
                 self.alpha = 1.0
             }
@@ -63,4 +73,6 @@ extension UIView {
         self.transform = CGAffineTransformRotate(self.transform, sender.rotation)
         sender.rotation = CGFloat(0.0)
     }
+    
+    
 }
