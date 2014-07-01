@@ -14,10 +14,12 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     let attributeNames = ["UIView", "UILabel"]
     var GestureRecognizerDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
+    let createdViews : Array<UIView> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.view.addGestureRecognizer(ThreeFingerPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,7 +70,16 @@ class ViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    func activateViews(gestureRecognizer: ThreeFingerPinchGestureRecognizer) {
+        if(gestureRecognizer.state == .Ended) {
+            NSLog("Victory!")
+            createdViews.map { $0.activate() }
+        }
+    }
+    
+    
     func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint, gestureRecognizer: UIGestureRecognizer) {
+        // TODO: I can actually instantiate UIViews from an array of their types
         let instantiatedView = DynamicViewInstantiator.instantiateViewFromClass(NSClassFromString(viewType)) as UIView
         instantiatedView.backgroundColor = UIColor.blackColor()
         instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
