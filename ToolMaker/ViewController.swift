@@ -14,12 +14,12 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     let attributeNames = ["UIView", "UILabel"]
     var GestureRecognizerDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
-    let createdViews : Array<UIView> = []
+    var createdViews : Array<UIView> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.addGestureRecognizer(ThreeFingerPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
+        self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,24 +65,43 @@ class ViewController: UIViewController, UITableViewDataSource {
                 GestureRecognizerDictionary[sender]!.removeFromSuperview()
             } else {
                 GestureRecognizerDictionary[sender]!.activate()
+                createdViews += GestureRecognizerDictionary[sender]!
             }
             GestureRecognizerDictionary.removeValueForKey(sender)
         }
     }
     
-    func activateViews(gestureRecognizer: ThreeFingerPinchGestureRecognizer) {
-        if(gestureRecognizer.state == .Ended) {
-            NSLog("Victory!")
-            createdViews.map { $0.activate() }
+    func activateViews(gestureRecognizer: UIPinchGestureRecognizer) {
+        if(gestureRecognizer.state == .Ended && gestureRecognizer.scale > 1.0) {
+            activateEditor()
+        } else if(gestureRecognizer.state == .Ended && gestureRecognizer.scale < 1.0) {
+            deactivateEditor()
         }
     }
-    
-    
+    func activateEditor() {
+        for view in createdViews {
+            view.userInteractionEnabled = true
+        }
+        NSLog("Activate")
+    }
+    func deactivateEditor() {
+        for view in createdViews {
+            view.userInteractionEnabled = false
+        }
+        NSLog("Deactivate")
+    }
     func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint, gestureRecognizer: UIGestureRecognizer) {
-        // TODO: I can actually instantiate UIViews from an array of their types
+        // TODO: I can actually instantiate UIViews from an array of their types once the Swift compiler stops erroring
         let instantiatedView = DynamicViewInstantiator.instantiateViewFromClass(NSClassFromString(viewType)) as UIView
-        instantiatedView.backgroundColor = UIColor.blackColor()
-        instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
+        switch instantiatedView {
+        case is UILabel:
+            (instantiatedView as UILabel).text = "Hello!"
+            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
+        case _:
+            instantiatedView.backgroundColor = UIColor.blackColor()
+            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
+        }
+        
         self.view.addSubview(instantiatedView)
         GestureRecognizerDictionary.updateValue(instantiatedView, forKey: gestureRecognizer)
     }
