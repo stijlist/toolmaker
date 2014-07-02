@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet var editorPaletteTableView: UITableView
-    
+    var editorPaletteActivated = true
     let attributeNames = ["UIView", "UILabel"]
     var GestureRecognizerDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
     var createdViews : Array<UIView> = []
@@ -72,26 +72,34 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func activateViews(gestureRecognizer: UIPinchGestureRecognizer) {
+        func activateEditor() {
+            if !self.editorPaletteActivated {
+                for view in createdViews {
+                    view.userInteractionEnabled = true
+                }
+                NSLog("Activate")
+            }
+        }
+        func deactivateEditor() {
+            if self.editorPaletteActivated {
+                for view in createdViews {
+                    view.userInteractionEnabled = false
+                }
+                NSLog("Deactivate")
+            }
+        }
+
         if(gestureRecognizer.state == .Ended && gestureRecognizer.scale > 1.0) {
             activateEditor()
         } else if(gestureRecognizer.state == .Ended && gestureRecognizer.scale < 1.0) {
             deactivateEditor()
         }
     }
-    func activateEditor() {
-        for view in createdViews {
-            view.userInteractionEnabled = true
-        }
-        NSLog("Activate")
-    }
-    func deactivateEditor() {
-        for view in createdViews {
-            view.userInteractionEnabled = false
-        }
-        NSLog("Deactivate")
-    }
+    
     func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint, gestureRecognizer: UIGestureRecognizer) {
         // TODO: I can actually instantiate UIViews from an array of their types once the Swift compiler stops erroring
+        // e.g. let viewTypes = [UIView.self, UILabel.self]
+        // calling with let viewType = viewTypes[0]; instantiatedView = viewType()
         let instantiatedView = DynamicViewInstantiator.instantiateViewFromClass(NSClassFromString(viewType)) as UIView
         switch instantiatedView {
         case is UILabel:
