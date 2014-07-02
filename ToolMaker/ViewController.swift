@@ -72,27 +72,38 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func activateViews(gestureRecognizer: UIPinchGestureRecognizer) {
+        enum palettePosition { case Onscreen, Offscreen }
+        func animateEditorPalette(position: palettePosition) {
+            var (currentX, currentY) = (editorPaletteTableView.center.x, editorPaletteTableView.center.y)
+            let editorWidth = editorPaletteTableView.bounds.width
+            switch position {
+            case .Onscreen:
+                currentX -= editorWidth
+            case .Offscreen:
+                currentX += editorWidth
+            }
+            UIView.animateWithDuration(0.2) {
+                self.editorPaletteTableView.center = CGPointMake(currentX, currentY)
+            }
+        }
         func activateEditor() {
             if !self.editorPaletteActivated {
-                for view in createdViews {
-                    view.userInteractionEnabled = true
-                }
-                NSLog("Activate")
+                animateEditorPalette(.Onscreen)
+                for view in createdViews { view.userInteractionEnabled = true } // .map crashes Xcode
+                self.editorPaletteActivated = true
             }
         }
         func deactivateEditor() {
             if self.editorPaletteActivated {
-                for view in createdViews {
-                    view.userInteractionEnabled = false
-                }
-                NSLog("Deactivate")
+                animateEditorPalette(.Offscreen)
+                for view in createdViews { view.userInteractionEnabled = false } // .map crashes Xcode
+                self.editorPaletteActivated = false
             }
         }
-
         if(gestureRecognizer.state == .Ended && gestureRecognizer.scale > 1.0) {
-            activateEditor()
+            activateEditor(); NSLog("activation triggered")
         } else if(gestureRecognizer.state == .Ended && gestureRecognizer.scale < 1.0) {
-            deactivateEditor()
+            deactivateEditor(); NSLog("deactivation triggered")
         }
     }
     
