@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pQv-Zf-yv1">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Source View Controller-->
@@ -55,41 +54,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fz7-cd-3kL" customClass="EditorPaletteView" customModule="ToolMakerKit">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="v2Q-S7-Wz1">
                                 <rect key="frame" x="349" y="20" width="131" height="440"/>
-                                <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="v2Q-S7-Wz1">
-                                        <rect key="frame" x="0.0" y="0.0" width="131" height="440"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PaletteItem" id="KWo-6o-sp9">
-                                                <rect key="frame" x="0.0" y="0.0" width="131" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KWo-6o-sp9" id="GQA-d8-8QP">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
-                                        <connections>
-                                            <outlet property="dataSource" destination="pQv-Zf-yv1" id="Lx1-vu-RS8"/>
-                                            <outlet property="delegate" destination="pQv-Zf-yv1" id="Ju7-NJ-UbC"/>
-                                        </connections>
-                                    </tableView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="v2Q-S7-Wz1" firstAttribute="width" secondItem="fz7-cd-3kL" secondAttribute="width" id="A92-fH-QHM"/>
-                                    <constraint firstItem="v2Q-S7-Wz1" firstAttribute="height" secondItem="fz7-cd-3kL" secondAttribute="height" id="InN-kl-FlR"/>
-                                </constraints>
-                            </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PaletteItem" id="KWo-6o-sp9">
+                                        <rect key="frame" x="0.0" y="0.0" width="131" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KWo-6o-sp9" id="GQA-d8-8QP">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="pQv-Zf-yv1" id="Lx1-vu-RS8"/>
+                                    <outlet property="delegate" destination="pQv-Zf-yv1" id="Ju7-NJ-UbC"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fz7-cd-3kL" firstAttribute="top" secondItem="5bk-Bl-usS" secondAttribute="bottom" id="J6B-na-Ih4"/>
-                            <constraint firstAttribute="trailing" secondItem="fz7-cd-3kL" secondAttribute="trailing" id="Vie-UB-pBD"/>
-                            <constraint firstItem="fz7-cd-3kL" firstAttribute="width" secondItem="BWk-fi-WEL" secondAttribute="width" multiplier="1/4" id="noQ-Ne-D7Q"/>
-                            <constraint firstItem="woq-8k-Z7H" firstAttribute="top" secondItem="fz7-cd-3kL" secondAttribute="bottom" constant="20" id="viu-sH-GlF"/>
+                            <constraint firstItem="woq-8k-Z7H" firstAttribute="top" secondItem="v2Q-S7-Wz1" secondAttribute="bottom" constant="20" id="BaZ-W7-E8j"/>
+                            <constraint firstAttribute="trailing" secondItem="v2Q-S7-Wz1" secondAttribute="trailing" id="NWo-AC-jLd"/>
+                            <constraint firstItem="v2Q-S7-Wz1" firstAttribute="top" secondItem="5bk-Bl-usS" secondAttribute="bottom" id="r79-0P-gVi"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
