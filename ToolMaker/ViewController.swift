@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet var editorPaletteTableView: UITableView
     var editorPaletteActivated = true
-    let attributeNames = ["UIView", "UILabel"]
+    let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var GestureRecognizerDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
     var createdViews : Array<UIView> = []
     
@@ -116,8 +116,18 @@ class ViewController: UIViewController, UITableViewDataSource {
         case is UILabel:
             (instantiatedView as UILabel).text = "Hello!"
             instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
+        case is UIButton:
+            (instantiatedView as UIButton).setTitle("Button", forState: .Normal)
+            (instantiatedView as UIButton).setTitleColor(UIColor.blueColor(), forState: .Normal)
+            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 44.0)
+        case is UITextField:
+            (instantiatedView as UITextField).text = "Lorem ipsum doler sit amet"
+            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 236.0, 88.0)
+        case is UIButton:
+            (instantiatedView as UIButton).setTitle("Button", forState: UIControlState.Normal)
+            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
         case _:
-            instantiatedView.backgroundColor = UIColor.blackColor()
+            instantiatedView.backgroundColor = UIColor.grayColor()
             instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
         }
         
