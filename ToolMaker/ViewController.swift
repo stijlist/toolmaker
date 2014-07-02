@@ -41,35 +41,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         return paletteItem
     }
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return attributeNames.count
-    }
-
-    func handlePanFromEditorPalette(sender: UIPanGestureRecognizer) {
-
-        let startingCell = sender.view as UITableViewCell
-        let locationOnScreen = sender.locationInView(self.view)
-        // look up view type based on cell's index (read from the cell's tag)
-        let viewType = attributeNames[startingCell.tag]
-        
-        switch(sender.state) {
-        case .Began:
-            instantiateViewAtPoint(viewType, locationOnScreen: locationOnScreen, gestureRecognizer: sender)
-        case .Changed:
-            let instantiatedView = GestureRecognizerDictionary[sender]!
-            instantiatedView.center = CGPointMake(locationOnScreen.x, locationOnScreen.y)
-        case _:
-            let locationInTableView = sender.locationInView(editorPaletteTableView)
-            if CGRectContainsPoint(sender.view.frame, locationInTableView) {
-                // if the user returns the instantiatedView to the cell from which it came
-                GestureRecognizerDictionary[sender]!.removeFromSuperview()
-            } else {
-                GestureRecognizerDictionary[sender]!.activate()
-                createdViews += GestureRecognizerDictionary[sender]!
-            }
-            GestureRecognizerDictionary.removeValueForKey(sender)
-        }
-    }
+    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int { return attributeNames.count }
     
     func activateViews(gestureRecognizer: UIPinchGestureRecognizer) {
         enum palettePosition { case Onscreen, Offscreen }
@@ -104,6 +76,32 @@ class ViewController: UIViewController, UITableViewDataSource {
             activateEditor()
         } else if(gestureRecognizer.state == .Ended && gestureRecognizer.scale < 1.0) {
             deactivateEditor()
+        }
+    }
+
+    func handlePanFromEditorPalette(sender: UIPanGestureRecognizer) {
+
+        let startingCell = sender.view as UITableViewCell
+        let locationOnScreen = sender.locationInView(self.view)
+        // look up view type based on cell's index (read from the cell's tag)
+        let viewType = attributeNames[startingCell.tag]
+        
+        switch(sender.state) {
+        case .Began:
+            instantiateViewAtPoint(viewType, locationOnScreen: locationOnScreen, gestureRecognizer: sender)
+        case .Changed:
+            let instantiatedView = GestureRecognizerDictionary[sender]!
+            instantiatedView.center = CGPointMake(locationOnScreen.x, locationOnScreen.y)
+        case .Ended where CGRectContainsPoint(editorPaletteTableView.frame, locationOnScreen):
+            GestureRecognizerDictionary[sender]!.removeFromSuperview()
+            GestureRecognizerDictionary.removeValueForKey(sender)
+        case .Ended:
+            GestureRecognizerDictionary[sender]!.activate()
+            createdViews += GestureRecognizerDictionary[sender]!
+            GestureRecognizerDictionary.removeValueForKey(sender)
+        case _:
+            GestureRecognizerDictionary[sender]!.removeFromSuperview()
+            GestureRecognizerDictionary.removeValueForKey(sender)
         }
     }
     
