@@ -101,9 +101,9 @@ class ViewController: UIViewController, UITableViewDataSource {
             }
         }
         if(gestureRecognizer.state == .Ended && gestureRecognizer.scale > 1.0) {
-            activateEditor(); NSLog("activation triggered")
+            activateEditor()
         } else if(gestureRecognizer.state == .Ended && gestureRecognizer.scale < 1.0) {
-            deactivateEditor(); NSLog("deactivation triggered")
+            deactivateEditor()
         }
     }
     
