@@ -111,22 +111,20 @@ class ViewController: UIViewController, UITableViewDataSource {
         // calling with let viewType = viewTypes[0]; instantiatedView = viewType()
         let instantiatedView = DynamicViewInstantiator.instantiateViewFromClass(NSClassFromString(viewType)) as UIView
         switch instantiatedView {
-        case is UILabel:
-            (instantiatedView as UILabel).text = "Hello!"
-            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
-        case is UIButton:
-            (instantiatedView as UIButton).setTitle("Button", forState: .Normal)
-            (instantiatedView as UIButton).setTitleColor(UIColor.blueColor(), forState: .Normal)
-            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 44.0)
-        case is UITextField:
-            (instantiatedView as UITextField).text = "Lorem ipsum doler sit amet"
-            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 236.0, 88.0)
-        case is UIButton:
-            (instantiatedView as UIButton).setTitle("Button", forState: UIControlState.Normal)
-            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
-        case _:
-            instantiatedView.backgroundColor = UIColor.grayColor()
-            instantiatedView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
+        case let label as UILabel:
+            label.text = "Hello!"
+            label.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
+        case let button as UIButton:
+            button.setTitle("Button", forState: .Normal)
+            button.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
+            button.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 44.0)
+        case let textField as UITextField:
+            textField.text = "Lorem ipsum doler sit amet"
+            textField.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 236.0, 88.0)
+        case let genericView:
+            genericView.backgroundColor = UIColor.grayColor()
+            genericView.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 88.0)
         }
         
         self.view.addSubview(instantiatedView)
