@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     @IBOutlet var editorPaletteTableView: UITableView
     
@@ -32,9 +32,31 @@ class ViewController: UIViewController, UITableViewDataSource {
         NSLog("\(tvX) \(tvY) \(tvWidth) \(tvHeight)")
         effectView.frame = CGRectMake(tvX, tvY, tvWidth, tvHeight)
         self.view.addSubview(effectView)
-        effectView.activate()
+        self.activateDirectManipulation(effectView)
     }
     
+    func activateDirectManipulation(viewToManipulate: UIView) {
+        // add gesture recognizers, set user interaction enabled
+        
+        // pan gestures
+        let panGestureRecognizer = UIPanGestureRecognizer(target: viewToManipulate, action: Selector("pan:"))
+        viewToManipulate.addGestureRecognizer(panGestureRecognizer)
+        
+        // pinch gestures
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: viewToManipulate, action: Selector("pinch:"))
+        viewToManipulate.addGestureRecognizer(pinchGestureRecognizer)
+        
+        // rotation gestures
+        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: viewToManipulate, action: Selector("rotate:"))
+        viewToManipulate.addGestureRecognizer(rotationGestureRecognizer)
+        
+        panGestureRecognizer.delegate = self
+        pinchGestureRecognizer.delegate = self
+        rotationGestureRecognizer.delegate = self
+        // defensive; in case the UIView's parent has set userInteractionEnabled to false
+        viewToManipulate.userInteractionEnabled = true
+
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -110,7 +132,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             GestureRecognizerDictionary[sender]!.removeFromSuperview()
             GestureRecognizerDictionary.removeValueForKey(sender)
         case .Ended:
-            GestureRecognizerDictionary[sender]!.activate()
+            self.activateDirectManipulation(GestureRecognizerDictionary[sender]!)
             createdViews += GestureRecognizerDictionary[sender]!
             GestureRecognizerDictionary.removeValueForKey(sender)
         case _:
@@ -148,5 +170,20 @@ class ViewController: UIViewController, UITableViewDataSource {
         
     }
     
-}
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!,
+        shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
+            // This conditional is suboptimal partially because swift compiler support for casing on multiple optionals
+            // is incomplete
+            let recognizerPair = (gestureRecognizer, otherGestureRecognizer)
+            switch recognizerPair {
+            case let(gr1, gr2):
+                switch (gr1.delegate, gr2.delegate) {
+                case let(d1, d2):
+                    return d1.isEqual(d2)
+                }
+            }
+    }
+    
 
+}

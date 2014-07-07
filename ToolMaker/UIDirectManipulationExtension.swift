@@ -9,7 +9,7 @@
 import UIKit
 
 
-extension UIView : UIGestureRecognizerDelegate {
+extension UIView {
     // NOTE: because of the implementation, each separate gesture recognizer fires separately,
     // and different attributes cannot be manipulated at the same time. This might enable the user
     // to be more precise, because they're only manipulating one degree of freedom at a time, 
@@ -20,27 +20,7 @@ extension UIView : UIGestureRecognizerDelegate {
     // OR:
     // - implement UIGestureRecognizerDelegate shouldRecognizeSimultaneouslyWithGestureRecognizer in this extension
     // - IDEA: enable users to activate different degrees of freedom in editor palette
-    func activate() {
-        // add gesture recognizers, set user interaction enabled
-        // pan gestures
-        
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("manipulate:"))
-        self.addGestureRecognizer(panGestureRecognizer)
-        
-        // pinch gestures
-        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("manipulate:"))
-        self.addGestureRecognizer(pinchGestureRecognizer)
-
-        // rotation gestures
-        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: Selector("manipulate:"))
-        self.addGestureRecognizer(rotationGestureRecognizer)
-        
-        panGestureRecognizer.delegate = self
-        pinchGestureRecognizer.delegate = self
-        rotationGestureRecognizer.delegate = self
-        // defensive; in case the UIView's parent has set userInteractionEnabled to false
-        self.userInteractionEnabled = true
-    }
+    
     
     func pan(gestureRecognizer: UIPanGestureRecognizer) {
         switch(gestureRecognizer.state) {
@@ -50,7 +30,7 @@ extension UIView : UIGestureRecognizerDelegate {
             }
         case .Changed:
             let delta = gestureRecognizer.translationInView(self.superview)
-            // if we redraw on every gestureRecognizer callback, then the object flickers because it's 
+            // if we redraw on every gestureRecognizer callback, then the object flickers because it's
             // redrawing too often, so only change the view's center (triggering a redraw) if the deltas
             // are above some magic number
             // TODO: figure out if this is the best way to avoid flickering
@@ -72,27 +52,11 @@ extension UIView : UIGestureRecognizerDelegate {
         self.transform = CGAffineTransformScale(self.transform, sender.scale, sender.scale)
         sender.scale = CGFloat(1.0)
     }
-
+    
     func rotate(sender: UIRotationGestureRecognizer) {
         self.transform = CGAffineTransformRotate(self.transform, sender.rotation)
         sender.rotation = CGFloat(0.0)
     }
     
-    func manipulate(sender: UIGestureRecognizer) {
-        switch(sender) {
-        case let panRecognizer as UIPanGestureRecognizer:
-            pan(panRecognizer)
-        case let rotationRecognizer as UIRotationGestureRecognizer:
-            rotate(rotationRecognizer)
-        case let pinchRecognizer as UIPinchGestureRecognizer:
-            pinch(pinchRecognizer)
-        case _:
-            println("what the fuck")
-        }
-    }
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!,
-        shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
-            return otherGestureRecognizer.view == gestureRecognizer.view
-    }
-
+   
 }
