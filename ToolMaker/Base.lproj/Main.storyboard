@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pQv-Zf-yv1">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Source View Controller-->
@@ -55,7 +57,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="v2Q-S7-Wz1">
-                                <rect key="frame" x="349" y="20" width="131" height="440"/>
+                                <rect key="frame" x="349" y="20" width="131" height="336"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PaletteItem" id="KWo-6o-sp9">
@@ -71,12 +73,36 @@
                                     <outlet property="delegate" destination="pQv-Zf-yv1" id="Ju7-NJ-UbC"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="op1-dR-qfc">
+                                <rect key="frame" x="349" y="364" width="131" height="116"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CK6-IO-BO9">
+                                        <rect key="frame" x="27" y="43" width="76" height="30"/>
+                                        <state key="normal" title="Manipulate">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="enableManipulation:" destination="pQv-Zf-yv1" eventType="touchUpInside" id="Hk1-X7-KrC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="CK6-IO-BO9" secondAttribute="centerX" constant="0.5" id="bTf-Lf-pwT"/>
+                                    <constraint firstAttribute="width" secondItem="op1-dR-qfc" secondAttribute="height" multiplier="131:116" priority="980" id="eYC-4F-uwg"/>
+                                    <constraint firstAttribute="centerY" secondItem="CK6-IO-BO9" secondAttribute="centerY" id="zRF-JR-kvP"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="woq-8k-Z7H" firstAttribute="top" secondItem="v2Q-S7-Wz1" secondAttribute="bottom" constant="20" id="BaZ-W7-E8j"/>
+                            <constraint firstItem="v2Q-S7-Wz1" firstAttribute="leading" secondItem="op1-dR-qfc" secondAttribute="leading" id="6bm-TG-r1B"/>
+                            <constraint firstAttribute="trailing" secondItem="op1-dR-qfc" secondAttribute="trailing" id="8Nu-3B-fE7"/>
                             <constraint firstAttribute="trailing" secondItem="v2Q-S7-Wz1" secondAttribute="trailing" id="NWo-AC-jLd"/>
+                            <constraint firstItem="op1-dR-qfc" firstAttribute="top" secondItem="v2Q-S7-Wz1" secondAttribute="bottom" id="PYn-jU-nPp"/>
+                            <constraint firstItem="woq-8k-Z7H" firstAttribute="top" secondItem="op1-dR-qfc" secondAttribute="bottom" id="dhX-e2-sfp"/>
                             <constraint firstItem="v2Q-S7-Wz1" firstAttribute="top" secondItem="5bk-Bl-usS" secondAttribute="bottom" id="r79-0P-gVi"/>
+                            <constraint firstItem="v2Q-S7-Wz1" firstAttribute="width" secondItem="BWk-fi-WEL" secondAttribute="width" multiplier="1/4" id="xqv-IA-uoo"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>

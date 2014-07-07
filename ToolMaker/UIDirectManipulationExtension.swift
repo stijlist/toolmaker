@@ -8,7 +8,8 @@
 
 import UIKit
 
-extension UIView {
+
+extension UIView : UIGestureRecognizerDelegate {
     // NOTE: because of the implementation, each separate gesture recognizer fires separately,
     // and different attributes cannot be manipulated at the same time. This might enable the user
     // to be more precise, because they're only manipulating one degree of freedom at a time, 
@@ -22,18 +23,21 @@ extension UIView {
     func activate() {
         // add gesture recognizers, set user interaction enabled
         // pan gestures
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("pan:"))
-//        longPressGestureRecognizer.minimumPressDuration = 0.1
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("manipulate:"))
         self.addGestureRecognizer(panGestureRecognizer)
         
         // pinch gestures
-        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("pinch:"))
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("manipulate:"))
         self.addGestureRecognizer(pinchGestureRecognizer)
 
         // rotation gestures
-        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: Selector("rotate:"))
+        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: Selector("manipulate:"))
         self.addGestureRecognizer(rotationGestureRecognizer)
         
+        panGestureRecognizer.delegate = self
+        pinchGestureRecognizer.delegate = self
+        rotationGestureRecognizer.delegate = self
         // defensive; in case the UIView's parent has set userInteractionEnabled to false
         self.userInteractionEnabled = true
     }
@@ -74,5 +78,21 @@ extension UIView {
         sender.rotation = CGFloat(0.0)
     }
     
-    
+    func manipulate(sender: UIGestureRecognizer) {
+        switch(sender) {
+        case let panRecognizer as UIPanGestureRecognizer:
+            pan(panRecognizer)
+        case let rotationRecognizer as UIRotationGestureRecognizer:
+            rotate(rotationRecognizer)
+        case let pinchRecognizer as UIPinchGestureRecognizer:
+            pinch(pinchRecognizer)
+        case _:
+            println("what the fuck")
+        }
+    }
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!,
+        shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
+            return otherGestureRecognizer.view == gestureRecognizer.view
+    }
+
 }

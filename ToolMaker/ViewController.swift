@@ -11,7 +11,12 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet var editorPaletteTableView: UITableView
-    var editorPaletteActivated = true
+    
+    // this abstraction may not be good enough
+    enum editorMode { case Snap, Zoom, Mark, Static }
+    var editorState : editorMode = .Static
+    
+    var editorPaletteActivated = true // collapse into editorState
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var GestureRecognizerDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
     var createdViews : Array<UIView> = []
@@ -20,7 +25,16 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
+        
+        let blur = UIBlurEffect(style: .Dark)
+        let effectView = UIVisualEffectView(effect: blur)
+        let (tvX, tvY, tvWidth, tvHeight) = (editorPaletteTableView.frame.origin.x, editorPaletteTableView.frame.origin.y, editorPaletteTableView.frame.width, editorPaletteTableView.frame.height)
+        NSLog("\(tvX) \(tvY) \(tvWidth) \(tvHeight)")
+        effectView.frame = CGRectMake(tvX, tvY, tvWidth, tvHeight)
+        self.view.addSubview(effectView)
+        effectView.activate()
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -129,6 +143,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         self.view.addSubview(instantiatedView)
         GestureRecognizerDictionary.updateValue(instantiatedView, forKey: gestureRecognizer)
+    }
+    @IBAction func enableManipulation(sender: UIButton) {
+        
     }
     
 }
