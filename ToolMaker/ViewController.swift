@@ -175,13 +175,12 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
             // This conditional is suboptimal partially because swift compiler support for casing on multiple optionals
             // is incomplete
-            let recognizerPair = (gestureRecognizer, otherGestureRecognizer)
-            switch recognizerPair {
-            case let(gr1, gr2):
-                switch (gr1.delegate, gr2.delegate) {
-                case let(d1, d2):
-                    return d1.isEqual(d2)
-                }
+            let delegatePair = (gestureRecognizer?.delegate, otherGestureRecognizer?.delegate)
+            switch delegatePair {
+            case let(.Some(d1), .Some(d2)):
+                return d1.isEqual(self) && d1.isEqual(self)
+            case _:
+                return false
             }
     }
     
