@@ -18,8 +18,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     
     var editorPaletteActivated = true // collapse into editorState
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
-    var GestureRecognizerDictionary : Dictionary<UIGestureRecognizer, UIView> = [:]
     var createdViews : Array<UIView> = []
+    var activeGestureRecognizersForView : Dictionary<UIView, NSSet> = [:] // Arrays as values causes null pointer exception
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,9 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         rotationGestureRecognizer.delegate = self
         // defensive; in case the UIView's parent has set userInteractionEnabled to false
         viewToManipulate.userInteractionEnabled = true
-
+        let recognizerSet = NSMutableSet(array: [panGestureRecognizer, pinchGestureRecognizer, rotationGestureRecognizer])
+        activeGestureRecognizersForView[viewToManipulate] = recognizerSet
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,8 +72,9 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         label.text = attributeNames[indexPath.row]
         paletteItem.addSubview(label)
         // configure gesture recognizer
-        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFromEditorPalette:"))
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTapInEditorPaletteCell:"))
         paletteItem.addGestureRecognizer(gestureRecognizer)
+
         // add tag so we can reference the indexPath from inside any gestureRecognizer callbacks
         paletteItem.tag = indexPath.row
         return paletteItem
@@ -115,33 +118,21 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         }
     }
 
-    func handlePanFromEditorPalette(sender: UIPanGestureRecognizer) {
-
+    func handleTapInEditorPaletteCell(sender: UITapGestureRecognizer) {
         let startingCell = sender.view as UITableViewCell
         let locationOnScreen = sender.locationInView(self.view)
         // look up view type based on cell's index (read from the cell's tag)
         let viewType = attributeNames[startingCell.tag]
         
         switch(sender.state) {
-        case .Began:
-            instantiateViewAtPoint(viewType, locationOnScreen: locationOnScreen, gestureRecognizer: sender)
-        case .Changed:
-            let instantiatedView = GestureRecognizerDictionary[sender]!
-            instantiatedView.center = CGPointMake(locationOnScreen.x, locationOnScreen.y)
-        case .Ended where CGRectContainsPoint(editorPaletteTableView.frame, locationOnScreen):
-            GestureRecognizerDictionary[sender]!.removeFromSuperview()
-            GestureRecognizerDictionary.removeValueForKey(sender)
         case .Ended:
-            self.activateDirectManipulation(GestureRecognizerDictionary[sender]!)
-            createdViews += GestureRecognizerDictionary[sender]!
-            GestureRecognizerDictionary.removeValueForKey(sender)
-        case _:
-            GestureRecognizerDictionary[sender]!.removeFromSuperview()
-            GestureRecognizerDictionary.removeValueForKey(sender)
+            let createdView = instantiateViewAtPoint(viewType, locationOnScreen: locationOnScreen)
+            self.activateDirectManipulation(createdView)
+        case _: () // do nothing
         }
     }
     
-    func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint, gestureRecognizer: UIGestureRecognizer) {
+    func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint) -> UIView {
         // TODO: I can actually instantiate UIViews from an array of their types once the Swift compiler stops erroring
         // e.g. let viewTypes = [UIView.self, UILabel.self]
         // calling with let viewType = viewTypes[0]; instantiatedView = viewType()
@@ -164,7 +155,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         }
         
         self.view.addSubview(instantiatedView)
-        GestureRecognizerDictionary.updateValue(instantiatedView, forKey: gestureRecognizer)
+        createdViews += instantiatedView
+        return instantiatedView
     }
     @IBAction func enableManipulation(sender: UIButton) {
         
@@ -183,6 +175,4 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
                 return false
             }
     }
-    
-
 }
