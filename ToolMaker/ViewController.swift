@@ -16,7 +16,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var createdViews : Array<UIView> = []
     var activeGestureRecognizersForView : Dictionary<UIView, NSSet> = [:] // Arrays as values causes null pointer exception
-    var potentialSuperviewToSubviewMappings : Dictionary<UIView, UIView> = [:] // keys: potential superviews, vals: subviews
     func activateDirectManipulation(viewToManipulate: UIView) {
         // pan gestures
         let panGestureRecognizer = UIPanGestureRecognizer(target: viewToManipulate, action: Selector("pan:"))
@@ -133,7 +132,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
             button.setTitle("Button", forState: .Normal)
             button.setTitleColor(UIColor.blueColor(), forState: .Normal)
             button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
-            button.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 88.0, 44.0)
+            button.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 66.0, 44.0)
         case let textField as UITextField:
             textField.text = "Lorem ipsum doler sit amet"
             textField.frame = CGRectMake(locationOnScreen.x - 44, locationOnScreen.y - 44, 236.0, 88.0)
@@ -146,24 +145,30 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         createdViews += instantiatedView
         self.activateDirectManipulation(instantiatedView)
     }
+    
     func handleHoverStateBeganForSubview(subview: UIView) {
-        let topMostView = topmostViewContainingView(subview)
-        potentialSuperviewToSubviewMappings[topMostView] = subview
+        NSLog("Hover state began")
+        if let topMostView = topmostViewContainingView(subview) {
+        }
     }
     func handleHoverStateEndedForSubview(subview: UIView) {
-        let topmost = topmostViewContainingView(subview)
-        if topmost == potentialSuperviewToSubviewMappings[topmost] {
-            NSLog("OMG")
+        NSLog("Hover state ended")
+        if let topmost = topmostViewContainingView(subview) {
             topmost.addSubview(subview)
-            // we also need to change subview in the list of created views
+            subview.frame = CGRectMake(subview.frame.origin.x - topmost.frame.origin.x, subview.frame.origin.y - topmost.frame.origin.y, subview.frame.size.width, subview.frame.size.height)
         }
     }
     
-    func topmostViewContainingView(v: UIView) -> UIView {
+    func topmostViewContainingView(v: UIView) -> UIView? {
         let collidingViews = createdViews.filter { createdView in
-            CGRectContainsRect(createdView.frame, v.frame) && !createdView.isEqual(v)
+            return CGRectContainsRect(createdView.frame, v.frame) && !(createdView.isEqual(v))
         }
-        return collidingViews[collidingViews.endIndex]
+        if collidingViews.count > 0 {
+            NSLog("we're in the right case")
+            return collidingViews[collidingViews.count - 1]
+        } else {
+            return nil
+        }
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!,

@@ -22,20 +22,14 @@ extension UIView {
             let delta = gestureRecognizer.translationInView(self.superview)
             self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)
             gestureRecognizer.setTranslation(CGPointZero, inView: self.superview)
-
-//            NSLog("\(vx) \(vy)")
-            if (abs(vx) < 15.0) && (abs(vy) < 15.0) { // TODO: remove magic numbers
-                if let manager = self.superview as? CreatedViewManager {
-                    manager.handleHoverStateBeganForSubview(self)
-                }
-            } else {
-                if let manager = self.superview as? CreatedViewManager {
-                    manager.handleHoverStateEndedForSubview(self)
-                }
-            }
+            // TODO: handle hover state began
         case _:
             let delta = gestureRecognizer.translationInView(self.superview)
             self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)
+            if let manager = self.superview as? CreatedViewManager {
+                manager.handleHoverStateEndedForSubview(self)
+            }
+
             UIView.animateWithDuration(0.3) {
                 self.alpha = 1.0
             }
