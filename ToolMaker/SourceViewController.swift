@@ -9,21 +9,39 @@
 import UIKit
 import JavaScriptCore
 
+extension JSContextRunner {
+    subscript(key: AnyObject) -> AnyObject {
+        get {
+            return self.getJSValueForKey(key)
+        }
+        set(newValue) {
+           self.setJSValue(newValue, forKey: key)
+        }
+    }
+}
+
 class SourceViewController: UIViewController {
     @IBOutlet var sourceText: UITextView
     @IBOutlet var console: UITextView
-    let context : JSContext = JSContext() // TODO: instantiate this lazily
+    let contextStore : JSContextRunner = JSContextRunner()
+//    let context : JSContext = JSContext()  // TODO: instantiate this lazily
+    var connection : UIConnection?
     
     func evaluateSource(source: String) -> JSValue {
-        return context.evaluateScript(source)
+        
+        return contextStore.context.evaluateScript(source)
     }
     
     @IBAction func runButtonPressed(sender: UIButton) {
         console.text = console.text + "\n" + (evaluateSource(sourceText.text).description)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        contextStore["connection"] = connection!
+        contextStore["toView"] = connection!.toView
+        
+        self.sourceText.text = "thatfunction();"
         // Do any additional setup after loading the view.
     }
 
@@ -31,8 +49,6 @@ class SourceViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
     /*
     // #pragma mark - Navigation
 
