@@ -13,8 +13,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     @IBOutlet var editorPaletteTableView: UITableView
     
     // this abstraction may not be good enough
-    enum editorMode { case Snap, Zoom, Mark, Static }
-    var editorState : editorMode = .Static
+//    enum editorMode { case Snap, Zoom, Mark, Static }
+//    var editorState : editorMode = .Static
     
     var editorPaletteActivated = true // collapse into editorState
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
@@ -25,14 +25,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
-        
-        let blur = UIBlurEffect(style: .Dark)
-        let effectView = UIVisualEffectView(effect: blur)
-        let (tvX, tvY, tvWidth, tvHeight) = (editorPaletteTableView.frame.origin.x, editorPaletteTableView.frame.origin.y, editorPaletteTableView.frame.width, editorPaletteTableView.frame.height)
-        NSLog("\(tvX) \(tvY) \(tvWidth) \(tvHeight)")
-        effectView.frame = CGRectMake(tvX, tvY, tvWidth, tvHeight)
-        self.view.addSubview(effectView)
-        self.activateDirectManipulation(effectView)
     }
     
     func activateDirectManipulation(viewToManipulate: UIView) {
@@ -59,6 +51,12 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         activeGestureRecognizersForView[viewToManipulate] = recognizerSet
         
     }
+    
+    func deactivateDirectManipulation(viewToManipulate: UIView) {
+        let gestureRecognizerSet = activeGestureRecognizersForView[activeGestureRecognizersForView.indexForKey(viewToManipulate)!].1
+        // ugh, what an abomination
+        for recognizer in gestureRecognizerSet { viewToManipulate.removeGestureRecognizer(recognizer as UIGestureRecognizer) }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -82,6 +80,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int { return attributeNames.count }
     
+    
+    // a lot of this logic should probably be in some kind of editor palette object
     func activateViews(gestureRecognizer: UIPinchGestureRecognizer) {
         enum palettePosition { case Onscreen, Offscreen }
         func animateEditorPalette(position: palettePosition) {
@@ -100,14 +100,14 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         func activateEditor() {
             if !self.editorPaletteActivated {
                 animateEditorPalette(.Onscreen)
-                for view in createdViews { view.userInteractionEnabled = true } // .map crashes Xcode
+                for view in createdViews { self.activateDirectManipulation(view) } // .map crashes Xcode
                 self.editorPaletteActivated = true
             }
         }
         func deactivateEditor() {
             if self.editorPaletteActivated {
                 animateEditorPalette(.Offscreen)
-                for view in createdViews { view.userInteractionEnabled = false } // .map crashes Xcode
+                for view in createdViews { self.deactivateDirectManipulation(view) } // .map crashes Xcode
                 self.editorPaletteActivated = false
             }
         }
@@ -124,15 +124,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         // look up view type based on cell's index (read from the cell's tag)
         let viewType = attributeNames[startingCell.tag]
         
-        switch(sender.state) {
-        case .Ended:
-            let createdView = instantiateViewAtPoint(viewType, locationOnScreen: locationOnScreen)
-            self.activateDirectManipulation(createdView)
-        case _: () // do nothing
-        }
+        if sender.state == .Ended { instantiateViewAtPoint(viewType, locationOnScreen: locationOnScreen) }
     }
     
-    func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint) -> UIView {
+    func instantiateViewAtPoint(viewType: String, locationOnScreen: CGPoint) {
         // TODO: I can actually instantiate UIViews from an array of their types once the Swift compiler stops erroring
         // e.g. let viewTypes = [UIView.self, UILabel.self]
         // calling with let viewType = viewTypes[0]; instantiatedView = viewType()
@@ -156,7 +151,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         
         self.view.addSubview(instantiatedView)
         createdViews += instantiatedView
-        return instantiatedView
+        self.activateDirectManipulation(instantiatedView)
     }
     @IBAction func enableManipulation(sender: UIButton) {
         
