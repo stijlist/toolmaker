@@ -12,6 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     
     @IBOutlet var editorPaletteTableView: UITableView
     
+    var connectButtonPressedDown = false
     var editorPaletteActivated = true // collapse into an editorState enum variable later
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var createdViews : Array<UIView> = []
@@ -21,7 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
+//        self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
         (self.view as EditorCanvas).delegate = self
     }
     
@@ -177,21 +178,64 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     }
     
     func triggerZoomIntoView(target: UIView) {
-        NSLog("YO")
+        NSLog("TODO: trigger zoom behavior here")
     }
     
-    func topmostViewContainingView(v: UIView) -> UIView? {
-        let collidingViews = createdViews.filter { createdView in
-            return CGRectContainsRect(createdView.frame, v.frame) && !(createdView.isEqual(v))
-        }
+    func topMostViewSatisfyingFunction(testFunction: (UIView) -> Bool) -> UIView? {
+        let collidingViews = createdViews.filter(testFunction)
         if collidingViews.count > 0 {
-            NSLog("we're in the right case")
             return collidingViews[collidingViews.count - 1]
         } else {
             return nil
         }
     }
     
+    func topmostViewContainingView(v: UIView) -> UIView? {
+        return topMostViewSatisfyingFunction { createdView in
+            return CGRectContainsRect(createdView.frame, v.frame) && !(createdView.isEqual(v))
+        }
+    }
+    
+    func activateConnectionHandlers(createdView: UIView) {
+        // add a new case to this gesturerecognizer for 'connection mode'
+        // delegate to the createdviewmanager with 'connectionDrawnFromView(self, toPoint:)'
+        // on each callback, manager says "is point inside another view"
+        // if yes, then -> makeconnection (this method will wire two views together and draw their connection) -> and then display
+        // the javascript editor for the connection, passing in the inputcomponent and the outputcomponent
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("connectionHandlerCallback:"))
+        createdView.addGestureRecognizer(panGestureRecognizer)
+        activeGestureRecognizersForView[createdView] = NSSet(array:[panGestureRecognizer])
+    }
+    
+    func connectionHandlerCallback(sender: UIPanGestureRecognizer) {
+        let location = sender.locationInView(self.view)
+        let colliding = topMostViewSatisfyingFunction { aView in
+            return CGRectContainsPoint(aView.frame, location)
+        }
+        
+        if colliding && sender.state == .Ended {
+            self.makeConnectionFromView(sender.view, toView: colliding!)
+        }
+    }
+    
+    func makeConnectionFromView(fromView: UIView, toView: UIView) {
+        NSLog("eureka")
+    }
+    
+    @IBAction func connectButtonPressed(sender: UIButton) {
+        self.connectButtonPressedDown = true
+        for createdView in self.createdViews {
+            deactivateDirectManipulation(createdView)
+            activateConnectionHandlers(createdView)
+        }
+    }
+    
+    @IBAction func connectButtonReleased(sender: UIButton) {
+        self.connectButtonPressedDown = false
+        for createdView in self.createdViews {
+            activateDirectManipulation(createdView)
+        }
+    }
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!,
         shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
             // This conditional is suboptimal partially because swift compiler support for casing on multiple optionals

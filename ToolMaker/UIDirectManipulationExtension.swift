@@ -10,7 +10,7 @@ import UIKit
 
 
 extension UIView {
-        
+    
     func pan(gestureRecognizer: UIPanGestureRecognizer) {
         let (vx, vy) = (gestureRecognizer.velocityInView(self.superview).x, gestureRecognizer.velocityInView(self.superview).y)
         switch(gestureRecognizer.state) {

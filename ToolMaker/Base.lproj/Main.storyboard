@@ -110,11 +110,12 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CK6-IO-BO9">
                                         <rect key="frame" x="27" y="43" width="76" height="30"/>
-                                        <state key="normal" title="Inspect">
+                                        <state key="normal" title="Connect">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="bl4-Gy-Zuc"/>
+                                            <action selector="connectButtonPressed:" destination="pQv-Zf-yv1" eventType="touchDown" id="U0y-a7-pyY"/>
+                                            <action selector="connectButtonReleased:" destination="pQv-Zf-yv1" eventType="touchUpInside" id="m7B-4d-QdD"/>
                                         </connections>
                                     </button>
                                 </subviews>
