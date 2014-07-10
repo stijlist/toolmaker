@@ -11,6 +11,7 @@ import JavaScriptCore
 
 class SourceViewController: UIViewController {
     @IBOutlet var sourceText: UITextView
+    @IBOutlet var consoleLog: UITextView
     let context : JSContext = JSContext()
     
     func evaluateSource(source: String) -> JSValue {
@@ -18,7 +19,7 @@ class SourceViewController: UIViewController {
     }
     
     @IBAction func runButtonPressed(sender: UIButton) {
-        NSLog(evaluateSource(sourceText.text).description)
+        consoleLog.text = (evaluateSource(sourceText.text).description)
     }
     override func viewDidLoad() {
         super.viewDidLoad()

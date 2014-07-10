@@ -18,14 +18,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="function hello() { return &quot;hello world&quot;; }; hello();" translatesAutoresizingMaskIntoConstraints="NO" id="DNY-sJ-yWH">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="function hello() { return &quot;hello world&quot;; }; hello();" translatesAutoresizingMaskIntoConstraints="NO" id="DNY-sJ-yWH">
+                                <rect key="frame" x="0.0" y="43" width="475" height="251"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ads-Bw-UOd">
-                                <rect key="frame" x="209" y="430" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ads-Bw-UOd">
+                                <rect key="frame" x="20" y="307" width="46" height="30"/>
                                 <state key="normal" title="Run">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -33,15 +33,41 @@
                                     <action selector="runButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Wo-ng-x36"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8B5-LL-2pv">
+                                <rect key="frame" x="0.0" y="345" width="480" height="135"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="de5-OB-38M">
+                                <rect key="frame" x="20" y="5" width="49" height="30"/>
+                                <state key="normal" title="&lt; Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="pQv-Zf-yv1" kind="show" id="m2t-wS-1bj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="DNY-sJ-yWH" secondAttribute="width" id="0KT-u6-i5d"/>
+                            <constraint firstItem="DNY-sJ-yWH" firstAttribute="leading" secondItem="Ads-Bw-UOd" secondAttribute="leading" constant="-20" id="1dD-C0-LNc"/>
+                            <constraint firstItem="8B5-LL-2pv" firstAttribute="top" secondItem="Ads-Bw-UOd" secondAttribute="bottom" constant="8" id="GAx-Q5-Q8u"/>
+                            <constraint firstItem="DNY-sJ-yWH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="3" id="aET-gF-vhA"/>
+                            <constraint firstItem="8B5-LL-2pv" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="cMy-N3-c63"/>
+                            <constraint firstItem="Ads-Bw-UOd" firstAttribute="top" secondItem="DNY-sJ-yWH" secondAttribute="bottom" constant="13" id="e7z-r0-yfW"/>
+                            <constraint firstItem="8B5-LL-2pv" firstAttribute="bottom" secondItem="DNY-sJ-yWH" secondAttribute="bottom" constant="160" id="y2R-xf-BFF"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="consoleLog" destination="8B5-LL-2pv" id="sSB-yy-gfR"/>
                         <outlet property="sourceText" destination="DNY-sJ-yWH" id="XO9-FY-6zc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="828" y="724"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="vY9-pg-yeM">
@@ -77,17 +103,18 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CK6-IO-BO9">
                                         <rect key="frame" x="27" y="43" width="76" height="30"/>
-                                        <state key="normal" title="Manipulate">
+                                        <state key="normal" title="Inspect">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="enableManipulation:" destination="pQv-Zf-yv1" eventType="touchUpInside" id="Hk1-X7-KrC"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" id="HHU-Wx-xyk"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="CK6-IO-BO9" secondAttribute="centerX" constant="0.5" id="bTf-Lf-pwT"/>
+                                    <constraint firstAttribute="centerX" secondItem="CK6-IO-BO9" secondAttribute="centerX" id="bTf-Lf-pwT"/>
                                     <constraint firstAttribute="width" secondItem="op1-dR-qfc" secondAttribute="height" multiplier="131:116" priority="980" id="eYC-4F-uwg"/>
                                     <constraint firstAttribute="centerY" secondItem="CK6-IO-BO9" secondAttribute="centerY" id="zRF-JR-kvP"/>
                                 </constraints>

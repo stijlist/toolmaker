@@ -53,8 +53,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     }
     
     func deactivateDirectManipulation(viewToManipulate: UIView) {
-        let gestureRecognizerSet = activeGestureRecognizersForView[activeGestureRecognizersForView.indexForKey(viewToManipulate)!].1
         // ugh, what an abomination
+        let gestureRecognizerSet = activeGestureRecognizersForView[activeGestureRecognizersForView.indexForKey(viewToManipulate)!].1
         for recognizer in gestureRecognizerSet { viewToManipulate.removeGestureRecognizer(recognizer as UIGestureRecognizer) }
     }
 
