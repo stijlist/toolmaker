@@ -23,6 +23,13 @@ extension UIView {
             self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)
             gestureRecognizer.setTranslation(CGPointZero, inView: self.superview)
             // TODO: handle hover state began
+            
+            if let manager = self.superview as? CreatedViewManager {
+                let speed = sqrt(vx * vx + vy * vy)
+                NSLog("\(speed)")
+                manager.handleHoverStateForSubview(self, isHovering: (speed < 100.0))
+            }
+            
         case _:
             let delta = gestureRecognizer.translationInView(self.superview)
             self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)

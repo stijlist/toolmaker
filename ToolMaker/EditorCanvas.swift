@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol CreatedViewManager {
-    func handleHoverStateBeganForSubview(subview: UIView)
+    func handleHoverStateForSubview(subview: UIView, isHovering: Bool) // TODO: really, really think about this
     func handleHoverStateEndedForSubview(subview: UIView)
 //    func displaySnappableObjectsForSubview(view: UIView)
 }
@@ -24,8 +24,8 @@ class EditorCanvas: UIView, CreatedViewManager {
         super.init(coder: aDecoder)
     }
     
-    func handleHoverStateBeganForSubview(subview: UIView) {
-        delegate?.handleHoverStateBeganForSubview(subview)
+    func handleHoverStateForSubview(subview: UIView, isHovering: Bool) {
+        delegate?.handleHoverStateForSubview(subview, isHovering: isHovering)
     }
     func handleHoverStateEndedForSubview(subview: UIView) {
         delegate?.handleHoverStateEndedForSubview(subview)

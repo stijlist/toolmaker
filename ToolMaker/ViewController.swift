@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var createdViews : Array<UIView> = []
     var activeGestureRecognizersForView : Dictionary<UIView, NSSet> = [:] // Arrays as values causes null pointer exception
+    var hoveringTimer: NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let paletteItem = tableView.dequeueReusableCellWithIdentifier("PaletteItem") as UITableViewCell
+        
         // configure label
         let label = UILabel(frame: paletteItem.bounds)
         label.text = attributeNames[indexPath.row]
@@ -147,9 +149,15 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         self.activateDirectManipulation(instantiatedView)
     }
     
-    func handleHoverStateBeganForSubview(subview: UIView) {
-        NSLog("Hover state began")
-        if let topMostView = topmostViewContainingView(subview) {
+    func handleHoverStateForSubview(subview: UIView, isHovering: Bool) {
+        if isHovering {
+            NSLog("hovering bool is true")
+            if !self.hoveringTimer {
+                self.hoveringTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("timerFired:"), userInfo: subview, repeats: false)
+            }
+        } else {
+            self.hoveringTimer?.invalidate()
+            self.hoveringTimer = nil
         }
     }
     func handleHoverStateEndedForSubview(subview: UIView) {
@@ -158,6 +166,18 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
             topmost.addSubview(subview)
             subview.frame = CGRectMake(subview.frame.origin.x - topmost.frame.origin.x, subview.frame.origin.y - topmost.frame.origin.y, subview.frame.size.width, subview.frame.size.height)
         }
+    }
+    
+    func timerFired(timer: NSTimer) {
+        let subview = timer.userInfo as UIView
+        if let topMostView = topmostViewContainingView(subview) {
+            self.triggerZoomIntoView(topMostView)
+        }
+        self.hoveringTimer = nil
+    }
+    
+    func triggerZoomIntoView(target: UIView) {
+        NSLog("YO")
     }
     
     func topmostViewContainingView(v: UIView) -> UIView? {
@@ -176,10 +196,13 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
             // This conditional is suboptimal partially because swift compiler support for casing on multiple optionals
             // is incomplete
+            let allSubviews = NSSet(array: gestureRecognizer.view.subviews).setByAddingObjectsFromArray(otherGestureRecognizer.view.subviews)
+            let isParentChildRelationship = NSSet(array:[gestureRecognizer.view, otherGestureRecognizer.view]).intersectsSet(allSubviews)
+            
             let delegatePair = (gestureRecognizer?.delegate, otherGestureRecognizer?.delegate)
             switch delegatePair {
-            case let(.Some(d1), .Some(d2)):
-                return d1.isEqual(self) && d1.isEqual(self)
+            case let(.Some(d1), .Some(d2)) where !isParentChildRelationship:
+                return (d1.isEqual(self) && d2.isEqual(self))
             case _:
                 return false
             }
