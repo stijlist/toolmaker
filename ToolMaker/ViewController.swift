@@ -17,12 +17,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     var createdViews : Array<UIView> = []
     var activeGestureRecognizersForView : Dictionary<UIView, NSSet> = [:] // Arrays as values causes null pointer exception
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
-    }
-    
     func activateDirectManipulation(viewToManipulate: UIView) {
         // pan gestures
         let panGestureRecognizer = UIPanGestureRecognizer(target: viewToManipulate, action: Selector("pan:"))
@@ -51,6 +45,12 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         for recognizer in gestureRecognizerSet { viewToManipulate.removeGestureRecognizer(recognizer as UIGestureRecognizer) }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
