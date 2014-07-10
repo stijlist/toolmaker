@@ -141,6 +141,7 @@
                     <navigationItem key="navigationItem" id="TNh-LA-Uth"/>
                     <connections>
                         <outlet property="editorPaletteTableView" destination="v2Q-S7-Wz1" id="gwK-ga-aao"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="openSourceView" id="VMZ-F1-rsp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tdz-yN-vlF" userLabel="First Responder" sceneMemberID="firstResponder"/>

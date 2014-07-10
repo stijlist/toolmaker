@@ -220,6 +220,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     
     func makeConnectionFromView(fromView: UIView, toView: UIView) {
         NSLog("eureka")
+        let scriptText = "\(fromView.description) \n \(toView.description)"
+        performSegueWithIdentifier("openSourceView", sender: self)
     }
     
     @IBAction func connectButtonPressed(sender: UIButton) {
