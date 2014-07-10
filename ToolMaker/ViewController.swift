@@ -12,10 +12,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     
     @IBOutlet var editorPaletteTableView: UITableView
     
-    // this abstraction may not be good enough
-//    enum editorMode { case Snap, Zoom, Mark, Static }
-//    var editorState : editorMode = .Static
-    
     var editorPaletteActivated = true // collapse into editorState
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var createdViews : Array<UIView> = []
@@ -28,8 +24,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     }
     
     func activateDirectManipulation(viewToManipulate: UIView) {
-        // add gesture recognizers, set user interaction enabled
-        
         // pan gestures
         let panGestureRecognizer = UIPanGestureRecognizer(target: viewToManipulate, action: Selector("pan:"))
         viewToManipulate.addGestureRecognizer(panGestureRecognizer)
@@ -53,8 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     }
     
     func deactivateDirectManipulation(viewToManipulate: UIView) {
-        // ugh, what an abomination
-        let gestureRecognizerSet = activeGestureRecognizersForView[activeGestureRecognizersForView.indexForKey(viewToManipulate)!].1
+        let gestureRecognizerSet = activeGestureRecognizersForView[viewToManipulate]!
         for recognizer in gestureRecognizerSet { viewToManipulate.removeGestureRecognizer(recognizer as UIGestureRecognizer) }
     }
 
@@ -79,7 +72,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int { return attributeNames.count }
-    
     
     // a lot of this logic should probably be in some kind of editor palette object
     func activateViews(gestureRecognizer: UIPinchGestureRecognizer) {
@@ -153,10 +145,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         createdViews += instantiatedView
         self.activateDirectManipulation(instantiatedView)
     }
-    @IBAction func enableManipulation(sender: UIButton) {
-        
-    }
-    
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!,
         shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {

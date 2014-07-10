@@ -12,14 +12,14 @@ import JavaScriptCore
 class SourceViewController: UIViewController {
     @IBOutlet var sourceText: UITextView
     @IBOutlet var console: UITextView
-    let context : JSContext = JSContext() // instantiate this lazily
+    let context : JSContext = JSContext() // TODO: instantiate this lazily
     
     func evaluateSource(source: String) -> JSValue {
         return context.evaluateScript(source)
     }
     
     @IBAction func runButtonPressed(sender: UIButton) {
-        console.text = (evaluateSource(sourceText.text).description)
+        console.text = console.text + "\n" + (evaluateSource(sourceText.text).description)
     }
     override func viewDidLoad() {
         super.viewDidLoad()

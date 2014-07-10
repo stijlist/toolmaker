@@ -114,7 +114,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="enableManipulation:" destination="pQv-Zf-yv1" eventType="touchUpInside" id="Hk1-X7-KrC"/>
                                             <segue destination="BYZ-38-t0r" kind="show" id="bl4-Gy-Zuc"/>
                                         </connections>
                                     </button>

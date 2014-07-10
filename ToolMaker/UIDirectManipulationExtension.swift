@@ -10,18 +10,7 @@ import UIKit
 
 
 extension UIView {
-    // NOTE: because of the implementation, each separate gesture recognizer fires separately,
-    // and different attributes cannot be manipulated at the same time. This might enable the user
-    // to be more precise, because they're only manipulating one degree of freedom at a time, 
-    // but if I want to enable multiple degrees of freedom:
-    // - set action of all gesture recognizers to the same (e.g. "manipulate")
-    // - switch/case in the manipulate function based respondsToSelector, e.g:
-    //     case sender.respondsToSelector(Selector("rotation")) => apply rotation transform
-    // OR:
-    // - implement UIGestureRecognizerDelegate shouldRecognizeSimultaneouslyWithGestureRecognizer in this extension
-    // - IDEA: enable users to activate different degrees of freedom in editor palette
-    
-    
+        
     func pan(gestureRecognizer: UIPanGestureRecognizer) {
         switch(gestureRecognizer.state) {
         case .Began:
