@@ -16,6 +16,19 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var createdViews : Array<UIView> = []
     var activeGestureRecognizersForView : Dictionary<UIView, NSSet> = [:] // Arrays as values causes null pointer exception
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
+        (self.view as EditorCanvas).delegate = self
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     func activateDirectManipulation(viewToManipulate: UIView) {
         // pan gestures
         let panGestureRecognizer = UIPanGestureRecognizer(target: viewToManipulate, action: Selector("pan:"))
@@ -42,18 +55,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
     func deactivateDirectManipulation(viewToManipulate: UIView) {
         let gestureRecognizerSet = activeGestureRecognizersForView[viewToManipulate]!
         for recognizer in gestureRecognizerSet { viewToManipulate.removeGestureRecognizer(recognizer as UIGestureRecognizer) }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
-        (self.view as EditorCanvas).delegate = self
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
