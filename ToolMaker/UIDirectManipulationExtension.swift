@@ -12,6 +12,7 @@ import UIKit
 extension UIView {
         
     func pan(gestureRecognizer: UIPanGestureRecognizer) {
+        let (vx, vy) = (gestureRecognizer.velocityInView(self.superview).x, gestureRecognizer.velocityInView(self.superview).y)
         switch(gestureRecognizer.state) {
         case .Began:
             UIView.animateWithDuration(0.3) {
@@ -19,14 +20,18 @@ extension UIView {
             }
         case .Changed:
             let delta = gestureRecognizer.translationInView(self.superview)
-            // if we redraw on every gestureRecognizer callback, then the object flickers because it's
-            // redrawing too often, so only change the view's center (triggering a redraw) if the deltas
-            // are above some magic number
-            // TODO: figure out if this is the best way to avoid flickering
-            if abs(delta.x) + abs(delta.y) > 4.0 {
-                self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)
-                // reset the translation to zero so we only get the delta since the last callback
-                gestureRecognizer.setTranslation(CGPointZero, inView: self.superview)
+            self.center = CGPointMake(self.center.x + delta.x, self.center.y + delta.y)
+            gestureRecognizer.setTranslation(CGPointZero, inView: self.superview)
+
+//            NSLog("\(vx) \(vy)")
+            if (abs(vx) < 15.0) && (abs(vy) < 15.0) { // TODO: remove magic numbers
+                if let manager = self.superview as? CreatedViewManager {
+                    manager.handleHoverStateBeganForSubview(self)
+                }
+            } else {
+                if let manager = self.superview as? CreatedViewManager {
+                    manager.handleHoverStateEndedForSubview(self)
+                }
             }
         case _:
             let delta = gestureRecognizer.translationInView(self.superview)

@@ -8,15 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UIGestureRecognizerDelegate, CreatedViewManager {
     
     @IBOutlet var editorPaletteTableView: UITableView
     
-    var editorPaletteActivated = true // collapse into editorState
+    var editorPaletteActivated = true // collapse into an editorState enum variable later
     let attributeNames = ["UIView", "UILabel", "UIButton", "UITextField"]
     var createdViews : Array<UIView> = []
     var activeGestureRecognizersForView : Dictionary<UIView, NSSet> = [:] // Arrays as values causes null pointer exception
-    
+    var potentialSuperviewToSubviewMappings : Dictionary<UIView, UIView> = [:] // keys: potential superviews, vals: subviews
     func activateDirectManipulation(viewToManipulate: UIView) {
         // pan gestures
         let panGestureRecognizer = UIPanGestureRecognizer(target: viewToManipulate, action: Selector("pan:"))
@@ -49,6 +49,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: Selector("activateViews:")))
+        (self.view as EditorCanvas).delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -144,6 +145,25 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         self.view.addSubview(instantiatedView)
         createdViews += instantiatedView
         self.activateDirectManipulation(instantiatedView)
+    }
+    func handleHoverStateBeganForSubview(subview: UIView) {
+        let topMostView = topmostViewContainingView(subview)
+        potentialSuperviewToSubviewMappings[topMostView] = subview
+    }
+    func handleHoverStateEndedForSubview(subview: UIView) {
+        let topmost = topmostViewContainingView(subview)
+        if topmost == potentialSuperviewToSubviewMappings[topmost] {
+            NSLog("OMG")
+            topmost.addSubview(subview)
+            // we also need to change subview in the list of created views
+        }
+    }
+    
+    func topmostViewContainingView(v: UIView) -> UIView {
+        let collidingViews = createdViews.filter { createdView in
+            CGRectContainsRect(createdView.frame, v.frame) && !createdView.isEqual(v)
+        }
+        return collidingViews[collidingViews.endIndex]
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!,
