@@ -37,8 +37,8 @@ class SourceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contextStore["connection"] = connection!
-        contextStore["toView"] = connection!.toView
+//        contextStore["connection"] = connection!
+//        contextStore["toView"] = connection!.toView
         
         self.sourceText.text = "var transform = function(componentState) { return componentState; };"
         // Do any additional setup after loading the view.

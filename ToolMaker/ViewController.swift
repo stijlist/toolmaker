@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class ViewController: UIViewController, UITableViewDataSource, UIGestureRecognizerDelegate, CreatedViewManager {
     
@@ -207,8 +208,23 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         activeGestureRecognizersForView[createdView] = NSSet(array:[panGestureRecognizer])
     }
     
+    func drawConnectionFrom(fromView: UIView, to point: CGPoint) -> CAShapeLayer {
+        var line = CAShapeLayer()
+        var path = UIBezierPath()
+        path.moveToPoint(fromView.center)
+        path.addLineToPoint(point)
+        line.path = path.CGPath
+        line.fillColor = nil
+        line.opacity = 1.0
+        line.strokeColor = UIColor.blackColor().CGColor
+        self.view.layer.addSublayer(line)
+        return line
+    }
+    var currentConnectionLine : CAShapeLayer? = nil // TODO: there's gotta be a better way
     func connectionHandlerCallback(sender: UIPanGestureRecognizer) {
         let location = sender.locationInView(self.view)
+        currentConnectionLine?.removeFromSuperlayer()
+        currentConnectionLine = drawConnectionFrom(sender.view, to: location)
         let colliding = topMostViewSatisfyingFunction { aView in
             return CGRectContainsPoint(aView.frame, location)
         }

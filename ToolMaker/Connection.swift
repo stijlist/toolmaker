@@ -14,7 +14,6 @@
 
 
 import UIKit
-import JavaScriptCore
 
 // We may need to be more simplistic with the Touch and ComponentState
 // types, using default NSArray / NSDictionary values instead of Swift
@@ -27,7 +26,16 @@ class Touch {
     var duration : CGFloat = 0.0
 }
 
-class ComponentState {
+@objc protocol ComponentStateExports : JSExport {
+    var touches : [Touch]? {
+        get
+    }
+    var attributes : [String:AnyObject] {
+        get
+    }
+}
+
+class ComponentState : ComponentStateExports {
     let touches : [Touch]?
     let attributes : [String:AnyObject]
     
@@ -37,9 +45,10 @@ class ComponentState {
     }
 }
 
-class Connection: NSObject, JSExport {
+class Connection: NSObject {
     let fromView : UIView
     let toView : UIView
+    
     // this transformation function needs to be capable of taking a JS function
     // in the JS editor, set the variable "transformation" on the global object
     // e.g. var transformation = function(componentState) {
