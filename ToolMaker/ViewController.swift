@@ -230,7 +230,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIGestureRecogniz
         }
         
         if colliding && sender.state == .Ended {
+            currentConnectionLine?.removeFromSuperlayer()
             self.makeConnectionFromView(sender.view, toView: colliding!)
+        } else if sender.state == .Ended { // TODO: there's definitely a better way
+            currentConnectionLine?.removeFromSuperlayer()
         }
     }
     
