@@ -20,7 +20,7 @@
 		4C6AFB25195A2B2400DC933D /* ToolMakerKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AFB24195A2B2400DC933D /* ToolMakerKitTests.swift */; };
 		4C6AFB28195A2B2400DC933D /* ToolMakerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */; };
 		4C6AFB29195A2B2400DC933D /* ToolMakerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		4C7C0237196F316D00980630 /* UIConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C0236196F316D00980630 /* UIConnection.swift */; };
+		4C7C0237196F316D00980630 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C0236196F316D00980630 /* Connection.swift */; };
 		4C7C023A196F381000980630 /* JSContextRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C0239196F381000980630 /* JSContextRunner.m */; };
 		4CD4FCAF195C9958006E6A67 /* DynamicViewInstatiator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */; };
 /* End PBXBuildFile section */
@@ -117,7 +117,7 @@
 		4C6AFB1D195A2B2300DC933D /* ToolMakerKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolMakerKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6AFB23195A2B2400DC933D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C6AFB24195A2B2400DC933D /* ToolMakerKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMakerKitTests.swift; sourceTree = "<group>"; };
-		4C7C0236196F316D00980630 /* UIConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConnection.swift; sourceTree = "<group>"; };
+		4C7C0236196F316D00980630 /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		4C7C0238196F381000980630 /* JSContextRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSContextRunner.h; sourceTree = "<group>"; };
 		4C7C0239196F381000980630 /* JSContextRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSContextRunner.m; sourceTree = "<group>"; };
 		4CD4FCAC195C9958006E6A67 /* ToolMaker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToolMaker-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 				4CD4FCAD195C9958006E6A67 /* DynamicViewInstatiator.h */,
 				4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */,
 				4C6AFB081959EE5200DC933D /* SourceViewController.swift */,
-				4C7C0236196F316D00980630 /* UIConnection.swift */,
+				4C7C0236196F316D00980630 /* Connection.swift */,
 				4C7C0238196F381000980630 /* JSContextRunner.h */,
 				4C7C0239196F381000980630 /* JSContextRunner.m */,
 				4C6AFAEF1959EE2A00DC933D /* Main.storyboard */,
@@ -446,7 +446,7 @@
 				4C0129E6195F793600F7A31D /* UIDirectManipulationExtension.swift in Sources */,
 				4C6AFAEC1959EE2A00DC933D /* AppDelegate.swift in Sources */,
 				4C6AFB091959EE5200DC933D /* SourceViewController.swift in Sources */,
-				4C7C0237196F316D00980630 /* UIConnection.swift in Sources */,
+				4C7C0237196F316D00980630 /* Connection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,8 +24,7 @@ class SourceViewController: UIViewController {
     @IBOutlet var sourceText: UITextView
     @IBOutlet var console: UITextView
     let contextStore : JSContextRunner = JSContextRunner()
-//    let context : JSContext = JSContext()  // TODO: instantiate this lazily
-    var connection : UIConnection?
+    var connection : Connection?
     
     func evaluateSource(source: String) -> JSValue {
         
@@ -33,7 +32,7 @@ class SourceViewController: UIViewController {
     }
     
     @IBAction func runButtonPressed(sender: UIButton) {
-        console.text = console.text + "\n" + (evaluateSource(sourceText.text).description)
+        console.text = "\(console.text) \n \(evaluateSource(sourceText.text))"
     }
     
     override func viewDidLoad() {
@@ -41,7 +40,7 @@ class SourceViewController: UIViewController {
         contextStore["connection"] = connection!
         contextStore["toView"] = connection!.toView
         
-        self.sourceText.text = "thatfunction();"
+        self.sourceText.text = "Object.keys(this);"
         // Do any additional setup after loading the view.
     }
 

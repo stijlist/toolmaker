@@ -8,18 +8,8 @@
 
 import UIKit
 
-
-extension UIView: JSExport {
-    // + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector;
-    // + (BOOL)isKeyExcludedFromWebScript:(const char *)name;
-    class func isSelectorExcludedFromWebScript(sel: Selector) -> Bool {
-        NSLog("yo")
-        return false;
-    }
-    class func isKeyExcludedFromWebScript(sel: Selector) -> Bool {
-        NSLog("yo")
-        return false;
-    }
+extension UIView {
+    
     func pan(gestureRecognizer: UIPanGestureRecognizer) {
         let (vx, vy) = (gestureRecognizer.velocityInView(self.superview).x, gestureRecognizer.velocityInView(self.superview).y)
         switch(gestureRecognizer.state) {

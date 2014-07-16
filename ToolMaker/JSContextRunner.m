@@ -8,24 +8,26 @@
 
 @import JavaScriptCore;
 #import "JSContextRunner.h"
-#import <objc/runtime.h>
+#import "objc/runtime.h"
 
 @interface JSContextRunner ()
-@property (nonatomic, copy) NSString *(^theTESTMETHOD)(NSString *, NSString *, NSArray *);
 @end
+
+
 
 @implementation JSContextRunner : NSObject
 - (id) init {
     if (self = [super init]) {
         _context = [[JSContext alloc] init];
     }
-    _theTESTMETHOD = ^NSString *(NSString *target, NSString *action, NSArray *args) {
-        
-        objc_msgSend([target cString], [action cString], args)
-        return (NSString*)self.context[lookup]; // TODO: fix this retain cycle
-    };
     
-    _context[@"thatfunction"] = _theTESTMETHOD;
+    // TODO: test sending messages to objects from javascript
+//    _testMethod = __weak ^msgSendInvocation {
+//        objc_msgsend([target cString], [action cString], args);
+//        return (NSString *)self.context[lookup];
+//    }
+//    
+//    _context[@"thatfunction"] = _testMethod;
    // returnType (^blockName)(parameterTypes) = ^returnType(parameters) {...};
 
     return self;
@@ -35,5 +37,20 @@
 }
 - (id) getJSValueForKey:(id)key {
     return self.context[key];
+}
+- (void) printKeys {
+    @autoreleasepool {
+        unsigned int numberOfProperties = 0;
+        objc_property_t *propertyArray = class_copyPropertyList([self.context class], &numberOfProperties);
+        
+        for (NSUInteger i = 0; i < numberOfProperties; i++)
+        {
+            objc_property_t property = propertyArray[i];
+            NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
+            NSString *attributesString = [[NSString alloc] initWithUTF8String:property_getAttributes(property)];
+            NSLog(@"Property %@ attributes: %@", name, attributesString);
+        }
+        free(propertyArray);
+    }
 }
 @end
