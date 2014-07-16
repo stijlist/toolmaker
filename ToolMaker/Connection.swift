@@ -63,6 +63,12 @@ class Connection: NSObject {
     // Do we want it to be void, and have it actually set properties on the
     // views it's concerned with?
     var transformationFn : ((ComponentState) -> NSDictionary)?
+    
+    var functionTemplate : String {
+        get {
+            return "var transform = function(componentState) {\n\treturn componentState;\n};"
+        }
+    }
 
     init(fromView: UIView, toView: UIView) {
         self.fromView = fromView
