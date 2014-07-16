@@ -22,7 +22,7 @@
 		4C6AFB29195A2B2400DC933D /* ToolMakerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6AFB13195A2B2300DC933D /* ToolMakerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4C7C0237196F316D00980630 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C0236196F316D00980630 /* Connection.swift */; };
 		4C7C023A196F381000980630 /* JSContextRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C0239196F381000980630 /* JSContextRunner.m */; };
-		4CD4FCAF195C9958006E6A67 /* DynamicViewInstatiator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */; };
+		4CD4FCAF195C9958006E6A67 /* DynamicViewInstantiator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4FCAE195C9958006E6A67 /* DynamicViewInstantiator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,8 +121,8 @@
 		4C7C0238196F381000980630 /* JSContextRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSContextRunner.h; sourceTree = "<group>"; };
 		4C7C0239196F381000980630 /* JSContextRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSContextRunner.m; sourceTree = "<group>"; };
 		4CD4FCAC195C9958006E6A67 /* ToolMaker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToolMaker-Bridging-Header.h"; sourceTree = "<group>"; };
-		4CD4FCAD195C9958006E6A67 /* DynamicViewInstatiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicViewInstatiator.h; sourceTree = "<group>"; };
-		4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicViewInstatiator.m; sourceTree = "<group>"; };
+		4CD4FCAD195C9958006E6A67 /* DynamicViewInstantiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicViewInstantiator.h; sourceTree = "<group>"; };
+		4CD4FCAE195C9958006E6A67 /* DynamicViewInstantiator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicViewInstantiator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,8 +188,8 @@
 				4C6AFAED1959EE2A00DC933D /* ViewController.swift */,
 				4C0129E5195F793600F7A31D /* UIDirectManipulationExtension.swift */,
 				4C242E2A196E69E8008E56FC /* EditorCanvas.swift */,
-				4CD4FCAD195C9958006E6A67 /* DynamicViewInstatiator.h */,
-				4CD4FCAE195C9958006E6A67 /* DynamicViewInstatiator.m */,
+				4CD4FCAD195C9958006E6A67 /* DynamicViewInstantiator.h */,
+				4CD4FCAE195C9958006E6A67 /* DynamicViewInstantiator.m */,
 				4C6AFB081959EE5200DC933D /* SourceViewController.swift */,
 				4C7C0236196F316D00980630 /* Connection.swift */,
 				4C7C0238196F381000980630 /* JSContextRunner.h */,
@@ -442,7 +442,7 @@
 				4C7C023A196F381000980630 /* JSContextRunner.m in Sources */,
 				4C242E2B196E69E8008E56FC /* EditorCanvas.swift in Sources */,
 				4C6AFAEE1959EE2A00DC933D /* ViewController.swift in Sources */,
-				4CD4FCAF195C9958006E6A67 /* DynamicViewInstatiator.m in Sources */,
+				4CD4FCAF195C9958006E6A67 /* DynamicViewInstantiator.m in Sources */,
 				4C0129E6195F793600F7A31D /* UIDirectManipulationExtension.swift in Sources */,
 				4C6AFAEC1959EE2A00DC933D /* AppDelegate.swift in Sources */,
 				4C6AFB091959EE5200DC933D /* SourceViewController.swift in Sources */,

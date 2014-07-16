@@ -7,7 +7,7 @@
 //
 
 //#import <objc/runtime.h>
-#import "DynamicViewInstatiator.h"
+#import "DynamicViewInstantiator.h"
 
 @implementation DynamicViewInstantiator : NSObject
 + (id)instantiateViewFromClass:(Class) klass {

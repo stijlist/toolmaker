@@ -40,7 +40,7 @@ class SourceViewController: UIViewController {
         contextStore["connection"] = connection!
         contextStore["toView"] = connection!.toView
         
-        self.sourceText.text = "Object.keys(this);"
+        self.sourceText.text = "var transform = function(componentState) { return componentState; };"
         // Do any additional setup after loading the view.
     }
 

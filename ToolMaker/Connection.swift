@@ -16,6 +16,10 @@
 import UIKit
 import JavaScriptCore
 
+// We may need to be more simplistic with the Touch and ComponentState
+// types, using default NSArray / NSDictionary values instead of Swift
+// arrays and dictionaries, just in case the objective-c <-> javascript
+// bridge can't handle them
 class Touch {
     var origin : CGPoint = CGPointZero
     var location : CGPoint = CGPointZero
